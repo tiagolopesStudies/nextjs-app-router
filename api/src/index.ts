@@ -3,6 +3,7 @@ import { OpenAPIHono } from '@hono/zod-openapi'
 import { apiReference } from '@scalar/hono-api-reference'
 import { cors } from 'hono/cors'
 import { type AuthSession, auth } from './auth.js'
+import { env } from './env.js'
 import { createComment } from './routes/create-comment.js'
 import { createIssue } from './routes/create-issue.js'
 import { deleteComment } from './routes/delete-comment.js'
@@ -38,7 +39,7 @@ const app = new OpenAPIHono<{
 app.use(
   '*',
   cors({
-    origin: 'http://localhost:3000',
+    origin: env.FRONTEND_URL,
     allowHeaders: ['Content-Type', 'Authorization'],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
     credentials: true
@@ -105,4 +106,4 @@ serve({
   port: 8080
 })
 
-console.log('API is running on http://localhost:8080')
+console.log(`API is running on ${env.BETTER_AUTH_URL}`)
