@@ -3,7 +3,7 @@ import { Button } from '@/components/button'
 import { Card } from '@/components/card'
 import { Section } from '@/components/section'
 
-export default function Home() {
+export default async function BoardPage() {
   return (
     <main className="grid grid-cols-4 gap-5 flex-1 items-stretch">
       <Section.Root>
