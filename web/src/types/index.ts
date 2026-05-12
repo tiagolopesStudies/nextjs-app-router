@@ -7,10 +7,3 @@ export interface IssueCard {
   status: IssueStatus
   comments: number
 }
-
-export interface IssuesListResponse {
-  backlog: IssueCard[]
-  todo: IssueCard[]
-  in_progress: IssueCard[]
-  done: IssueCard[]
-}

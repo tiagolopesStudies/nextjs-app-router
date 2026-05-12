@@ -1,7 +1,6 @@
 'use client'
 
 import { Loader2Icon, LogInIcon, UserIcon } from 'lucide-react'
-import Image from 'next/image'
 import { authClient } from '@/lib/auth-client'
 
 export function UserButton() {
@@ -31,11 +30,10 @@ export function UserButton() {
           className="size-8 rounded-full overflow-hidden"
         >
           {session.user.image ? (
-            <Image
+            // biome-ignore lint/performance/noImgElement: Github already optmizes the image
+            <img
               src={session.user.image}
               alt={session.user.name}
-              width={0}
-              height={0}
               draggable={false}
               className="size-8 rounded-full cursor-pointer"
             />

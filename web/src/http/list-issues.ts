@@ -1,8 +1,21 @@
-import type { IssuesListResponse } from '@/types'
+import type { IssueCard } from '@/types'
 import { fetchApi } from '@/utils/api'
 
-export async function ListIssues() {
-  const data = await fetchApi<IssuesListResponse>('/issues')
+interface ListIssuesParams {
+  search?: string
+}
+
+interface ListIssuesResponse {
+  backlog: IssueCard[]
+  todo: IssueCard[]
+  in_progress: IssueCard[]
+  done: IssueCard[]
+}
+
+export async function ListIssues({ search = '' }: ListIssuesParams) {
+  const data = await fetchApi<ListIssuesResponse>('/issues', {
+    params: { search }
+  })
 
   return data
 }
