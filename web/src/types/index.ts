@@ -7,3 +7,8 @@ export interface IssueCard {
   status: IssueStatus
   comments: number
 }
+
+export interface IssueDetails extends IssueCard {
+  description: string
+  createdAt: string
+}

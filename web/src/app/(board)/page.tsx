@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Button } from '@/components/button'
 import { Card } from '@/components/card'
 import { Section } from '@/components/section'
-import { ListIssues } from '@/http/list-issues'
+import { listIssues } from '@/http/list-issues'
 
 export const metadata: Metadata = {
   title: 'Board'
@@ -15,7 +15,7 @@ interface BoardPageProps {
 
 export default async function BoardPage({ searchParams }: BoardPageProps) {
   const { q } = await searchParams
-  const issues = await ListIssues({ search: q })
+  const issues = await listIssues({ search: q })
 
   return (
     <main className="grid grid-cols-4 gap-5 flex-1 items-stretch">
@@ -37,7 +37,7 @@ export default async function BoardPage({ searchParams }: BoardPageProps) {
           ) : (
             issues.backlog.map((issue) => {
               return (
-                <Card.Root href="/" key={issue.id}>
+                <Card.Root href={`/issues/${issue.id}`} key={issue.id}>
                   <Card.Header>
                     <Card.Number>ECO-{issue.issueNumber}</Card.Number>
                     <Card.Title>{issue.title}</Card.Title>
@@ -78,7 +78,7 @@ export default async function BoardPage({ searchParams }: BoardPageProps) {
           ) : (
             issues.todo.map((issue) => {
               return (
-                <Card.Root href="/" key={issue.id}>
+                <Card.Root href={`/issues/${issue.id}`} key={issue.id}>
                   <Card.Header>
                     <Card.Number>ECO-{issue.issueNumber}</Card.Number>
                     <Card.Title>{issue.title}</Card.Title>
@@ -119,7 +119,7 @@ export default async function BoardPage({ searchParams }: BoardPageProps) {
           ) : (
             issues.in_progress.map((issue) => {
               return (
-                <Card.Root href="/" key={issue.id}>
+                <Card.Root href={`/issues/${issue.id}`} key={issue.id}>
                   <Card.Header>
                     <Card.Number>ECO-{issue.issueNumber}</Card.Number>
                     <Card.Title>{issue.title}</Card.Title>
@@ -160,7 +160,7 @@ export default async function BoardPage({ searchParams }: BoardPageProps) {
           ) : (
             issues.done.map((issue) => {
               return (
-                <Card.Root href="/" key={issue.id}>
+                <Card.Root href={`/issues/${issue.id}`} key={issue.id}>
                   <Card.Header>
                     <Card.Number>ECO-{issue.issueNumber}</Card.Number>
                     <Card.Title>{issue.title}</Card.Title>

@@ -12,7 +12,7 @@ interface ListIssuesResponse {
   done: IssueCard[]
 }
 
-export async function ListIssues({ search = '' }: ListIssuesParams) {
+export async function listIssues({ search = '' }: ListIssuesParams) {
   const data = await fetchApi<ListIssuesResponse>('/issues', {
     params: { search }
   })

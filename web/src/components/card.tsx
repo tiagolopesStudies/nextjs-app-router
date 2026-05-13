@@ -1,11 +1,12 @@
+import Link from 'next/link'
 import type { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-interface CardRootProps extends ComponentProps<'a'> {}
+interface CardRootProps extends ComponentProps<typeof Link> {}
 
 export function CardRoot({ className, href, ...props }: CardRootProps) {
   return (
-    <a
+    <Link
       href={href}
       className={twMerge(
         'bg-navy-700 border-[0.5px] border-navy-600 p-3 space-y-4 rounded-lg block',
