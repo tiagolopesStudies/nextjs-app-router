@@ -12,3 +12,14 @@ export interface IssueDetails extends IssueCard {
   description: string
   createdAt: string
 }
+
+export interface IssueComment {
+  id: string
+  issueId: string
+  author: {
+    name: string
+    avatar: string
+  }
+  text: string
+  createdAt: string
+}
