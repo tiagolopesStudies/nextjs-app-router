@@ -9,11 +9,14 @@ export async function fetchApi<T = unknown>(path: string, options?: FetchOptions
 
   if (options) {
     for (const [key, value] of Object.entries(options.params)) {
-      url.searchParams.set(key, String(value))
+      const stringValue = String(Array.isArray(value) ? value.join(',') : value)
+      url.searchParams.set(key, stringValue)
     }
   }
 
-  const response = await fetch(url)
+  const response = await fetch(url, {
+    credentials: 'include'
+  })
   const data: T = await response.json()
 
   return data

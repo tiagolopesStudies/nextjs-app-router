@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { NuqsAdapter } from 'nuqs/adapters/next'
+import { ReactQueryProvider } from '@/lib/react-query'
 
 const interFont = Inter({
   subsets: ['latin']
@@ -23,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${interFont.className} antialiased`}>
       <body className="min-h-screen bg-navy-950 text-navy-50">
-        <NuqsAdapter>{children}</NuqsAdapter>
+        <ReactQueryProvider>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </ReactQueryProvider>
       </body>
     </html>
   )

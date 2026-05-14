@@ -9,6 +9,7 @@
     "lint": "biome check --write"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.100.10",
     "better-auth": "^1.6.10",
     "date-fns": "^4.1.0",
     "lucide-react": "^1.14.0",

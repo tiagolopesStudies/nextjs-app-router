@@ -23,3 +23,9 @@ export interface IssueComment {
   text: string
   createdAt: string
 }
+
+export interface Interaction {
+  issueId: string
+  isLiked: boolean
+  likesCount: number
+}
