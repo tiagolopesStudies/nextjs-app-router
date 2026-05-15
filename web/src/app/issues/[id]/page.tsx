@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { Input } from '@/components/input'
-import { Skeleton } from '@/components/skeleton'
 import { getIssue } from '@/http/get-issue'
 import { IssueCommentsList } from './issue-comments/issue-comments-list'
 import { IssueCommentsLoading } from './issue-comments/issue-comments-loading'
@@ -51,9 +50,7 @@ export default async function IssueDetailsPage({ params }: IssueDetailsPageProps
           {statusLabel[issue.status] ?? statusLabel.backlog}
         </span>
 
-        <Suspense fallback={<Skeleton className="h-3 w-16" />}>
-          <IssueLikeButton issueId={issue.id} />
-        </Suspense>
+        <IssueLikeButton issueId={issue.id} />
       </div>
 
       <div className="space-y-2">
