@@ -24,48 +24,58 @@ export function LikeButton({
   ...props
 }: LikeButtonProps) {
   const queryClient = useQueryClient()
-  const { mutate: handleToggleLike, isPending } = useMutation({
+  const { mutate: onToggleLike, isPending } = useMutation({
     mutationFn: () => toggleIssueLike({ issueId }),
     onMutate: async () => {
-      const previousData = queryClient.getQueryData<IssueInteractions>([
-        'issue-likes',
-        issueId
-      ])
-
-      queryClient.setQueryData<IssueInteractions>(['issue-likes', issueId], (old) => {
-        if (!old) {
-          return undefined
-        }
-
-        return {
-          ...old,
-          interactions: old.interactions.map((interaction) => {
-            if (interaction.issueId === issueId) {
-              return {
-                ...interaction,
-                isLiked: !interaction.isLiked,
-                likesCount: interaction.isLiked
-                  ? interaction.likesCount - 1
-                  : interaction.likesCount + 1
-              }
-            }
-
-            return interaction
-          })
-        }
+      const previousData = queryClient.getQueriesData<IssueInteractions>({
+        queryKey: ['issue-likes']
       })
+
+      queryClient.setQueriesData<IssueInteractions>(
+        {
+          queryKey: ['issue-likes']
+        },
+        (old) => {
+          if (!old) {
+            return undefined
+          }
+
+          return {
+            ...old,
+            interactions: old.interactions.map((interaction) => {
+              if (interaction.issueId === issueId) {
+                return {
+                  ...interaction,
+                  isLiked: !interaction.isLiked,
+                  likesCount: interaction.isLiked
+                    ? interaction.likesCount - 1
+                    : interaction.likesCount + 1
+                }
+              }
+
+              return interaction
+            })
+          }
+        }
+      )
 
       return { previousData }
     },
     onError: async (_err, _params, context) => {
       if (context?.previousData) {
-        queryClient.setQueryData<IssueInteractions>(
-          ['issue-likes', issueId],
-          context.previousData
-        )
+        for (const [queryKey, data] of context.previousData) {
+          queryClient.setQueryData<IssueInteractions>(queryKey, data)
+        }
       }
     }
   })
+
+  function handleToggleLike(event: React.MouseEvent) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    onToggleLike()
+  }
 
   const liked = initialLiked
 
@@ -74,7 +84,7 @@ export function LikeButton({
       data-liked={liked}
       className="data-[liked=true]:bg-indigo-600 data-[liked=true]:text-white data-[liked=true]:hover:bg-indigo-500"
       aria-label={liked ? 'Unlike' : 'Like'}
-      onClick={() => handleToggleLike()}
+      onClick={handleToggleLike}
       disabled={isPending}
       {...props}
     >

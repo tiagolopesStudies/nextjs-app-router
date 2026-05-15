@@ -5,7 +5,7 @@ interface ListIssuesParams {
   search?: string
 }
 
-interface ListIssuesResponse {
+export interface ListIssuesResponse {
   backlog: IssueCard[]
   todo: IssueCard[]
   in_progress: IssueCard[]
