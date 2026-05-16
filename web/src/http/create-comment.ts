@@ -1,5 +1,6 @@
 import 'server-only'
 
+import { updateTag } from 'next/cache'
 import { headers } from 'next/headers'
 import type { Interaction } from '@/types'
 import { fetchApi } from '@/utils/api'
@@ -22,6 +23,8 @@ export async function createComment({ issueId, text }: CreateCommentParams) {
     body: { text },
     headers: getCookiesFromHeaders(incomingHeaders)
   })
+
+  updateTag(`issue-comments-${issueId}`)
 
   return data
 }

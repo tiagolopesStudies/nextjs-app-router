@@ -1,3 +1,4 @@
+import { cacheLife } from 'next/cache'
 import type { IssueCard } from '@/types'
 import { fetchApi } from '@/utils/api'
 
@@ -13,6 +14,10 @@ export interface ListIssuesResponse {
 }
 
 export async function listIssues({ search = '' }: ListIssuesParams) {
+  'use cache'
+
+  cacheLife('minutes')
+
   const data = await fetchApi<ListIssuesResponse>('/issues', {
     params: { search }
   })
