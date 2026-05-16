@@ -17,15 +17,20 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children
+  children,
+  modal
 }: Readonly<{
   children: React.ReactNode
+  modal: React.ReactNode
 }>) {
   return (
     <html lang="en" className={`${interFont.className} antialiased`}>
       <body className="min-h-screen bg-navy-950 text-navy-50">
         <ReactQueryProvider>
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <NuqsAdapter>
+            {modal}
+            {children}
+          </NuqsAdapter>
         </ReactQueryProvider>
       </body>
     </html>
